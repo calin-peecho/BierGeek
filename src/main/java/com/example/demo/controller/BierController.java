@@ -1,35 +1,52 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Bier;
-import com.example.demo.service.BierPunkService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.repository.BierRepository;
+import com.example.demo.service.impl.BierServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class BierController {
-    //https://api.punkapi.com/v2/beers/random
-    //curl https://api.punkapi.com/v2/beers/1
-//     "id": 192,
-//             "name": "Punk IPA 2007 - 2010",
-//             "tagline": "Post Modern Classic. Spiky. Tropical. Hoppy.",
-//             "first_brewed": "04/2007",
-//             "description":
 
-    @Autowired
-    BierPunkService service;
+    private final BierServiceImpl service;
+    private final BierRepository repository;
 
-    List<Bier> bierList = new ArrayList<>();
+    public BierController(BierServiceImpl service, BierRepository repository) {
+        this.service = service;
+        this.repository = repository;
+    }
 
-    @RequestMapping(value = "/index")
+    @GetMapping(value = "/index")
     public String getRandom(Model model) {
-        Bier[] bier = service.getRandom();
-        bierList.add(bier[0]);
-        model.addAttribute("bier", bierList);
+        Bier bier = service.getRandom();
+        model.addAttribute("bier", bier);
         return "index";
+    }
+
+    @PostMapping(value = "/save")
+    public String save(@ModelAttribute Bier bier, Model model) {
+        if(!repository.findById(bier.getId()).isPresent()) {
+            repository.save(bier);
+        }
+        return "saved";
+    }
+
+    @PostMapping(value = "/remove")
+    public String remove(@ModelAttribute Bier bier, Model model) {
+        if(repository.findById(bier.getId()).isPresent()) {
+            repository.deleteById(bier.getId());
+        }
+        model.addAttribute("bierList", repository.findAll());
+        return "saved";
+    }
+
+    @GetMapping(value = "/saved")
+    public String showSaved(Model model) {
+        model.addAttribute("bierList", repository.findAll());
+        return "saved";
     }
 }
