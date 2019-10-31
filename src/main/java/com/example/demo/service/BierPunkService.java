@@ -17,8 +17,6 @@ public class BierPunkService {
 //        this.restTemplate = restTemplateBuilder.build();
 //    }
 
-
-
     public Bier[] getRandom() {
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setSSLHostnameVerifier(new NoopHostnameVerifier())
@@ -29,9 +27,5 @@ public class BierPunkService {
 
         String fooResourceUrl = "https://api.punkapi.com/v2/beers/random";
         return restTemplate.getForObject(fooResourceUrl, Bier[].class);
-//        return this.restTemplate.getForObject(url, Post[].class);
-//        for(Bier re : response ){
-//            System.out.println(re);
-//        }
     }
 }
