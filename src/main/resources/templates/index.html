@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bier</title>
+</head>
+<tbody>
+    <h4>Welcome to Thymeleaf Spring Boot web application2</h4>
+    <div>
+        <a th:href="@{index}">random</a>
+    </div>
+<hr>
+      <tr th:each="b: ${bier}">
+        <td th:text="${b.name}" />
+        <td th:text="${b.tagline}" />
+        <td th:text="${b.abv}" />
+    </tr>
+    </tbody>
+
+</html>
