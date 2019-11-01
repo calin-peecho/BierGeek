@@ -5,9 +5,7 @@ import com.example.demo.repository.BierRepository;
 import com.example.demo.service.impl.BierServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BierController {
@@ -35,13 +33,12 @@ public class BierController {
         return "saved";
     }
 
-    @PostMapping(value = "/remove")
-    public String remove(@ModelAttribute Bier bier, Model model) {
-        if(repository.findById(bier.getId()).isPresent()) {
-            repository.deleteById(bier.getId());
+    @PostMapping(value = "/remove_item")
+    public String remove(@RequestParam Long id) {
+        if(repository.findById(id).isPresent()) {
+            repository.deleteById(id);
         }
-        model.addAttribute("bierList", repository.findAll());
-        return "saved";
+        return "redirect:/saved";
     }
 
     @GetMapping(value = "/saved")
