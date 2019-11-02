@@ -1,11 +1,9 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,6 +26,10 @@ public class Bier {
     @NotNull
     private String abv;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+//    @JsonBackReference
+    private User user;
 
     public long getId() {
         return id;
@@ -59,5 +61,13 @@ public class Bier {
 
     public void setAbv(String abv) {
         this.abv = abv;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
