@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * This class represent composite primary key gor
+ * This class represent composite primary key for Bier.class
  */
 public class BierId implements Serializable {
     private long id;
