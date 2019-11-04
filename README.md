@@ -8,6 +8,9 @@ git clone https://github.com/alexeybogdanov/BierGeek
 
 $ mvn spring-boot:run (from project directory)
 
+### BASE URL
+http://localhost:8080
+
 ### Users
 * user/12345 
 
