@@ -1,15 +1,16 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
+@IdClass(BierId.class)
 @Table(name = "bier")
-public class Bier {
+public class Bier implements Serializable {
 
     @Id
     private long id;
@@ -26,9 +27,9 @@ public class Bier {
     @NotNull
     private String abv;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-//    @JsonBackReference
     private User user;
 
     public long getId() {
@@ -70,4 +71,5 @@ public class Bier {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

@@ -39,11 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .defaultSuccessUrl("/index", true)
                 .permitAll().and().logout();
-//                .and()
-//                .httpBasic().realmName("example.com")
-//                .and().csrf().disable();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

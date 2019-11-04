@@ -6,72 +6,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            $("#save").submit(function(event) {
-                event.preventDefault();
-                saveBier();
-                // searchViaAjax();
-            });
-        });
-
-        function saveBier(searchViaAjax) {
-            console.log("save bier")
-            var $form = $('#save');
-            console.log($form);
-            $.ajax({
-                type : "POST",
-                url : "/save",
-                data :
-                    $form.serialize(),
-                success: function(){
-                    searchViaAjax();
-                }
-            });
-            function searchViaAjax() {
-                $.ajax({
-                    type : "GET",
-                    url : "/api/getSearchResult",
-                    data : {
-                        // "id" : ${articleCount}
-                        "id" : 1
-                    },
-                    success: function(data){
-                        $( ".striped" ).slideUp( "slow", function() {
-                            // Animation complete.
-                        });
-
-                        console.log('recieved data = ' + data)
-                        // $('#counter').val(99);
-                        $("#savedItems").text(data);
-                    }
-                });
-            }
-        }
-
-
-
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/random.js}"></script>
 </head>
 <tbody>
 
     <div>
         <a class="waves-effect waves-light btn" th:href="@{/random}">Random</a>
-        <a class="waves-effect waves-light btn" th:href="@{/index}">Search</a>
+        <a class="waves-effect waves-light btn" th:href="@{/search}">Search</a>
         <a class="waves-effect waves-light btn" th:href="@{/saved}">Saved <span id="savedItems" class="badge" ></span></a>
-<!--        <span class="new badge" data-badge-caption="Saved" id="myLabel"></span>-->
         <a class="waves-effect waves-light btn" th:href="@{/logout}">Logout</a>
     </div>
 
-<!--    <div th:if="${randomBier != null}" th:text="Yes, variable exists!">-->
-<!--        I wonder, if variable exists...-->
-<!--    </div>-->
 
-    <div>
+    <div th:if="${randomBier != null}">
         <table class="striped">
             <tr>
                 <th>Name</th>
@@ -84,12 +32,12 @@
                 <td th:text="${b.tagline}" />
                 <td th:text="${b.abv}" />
                 <td>
-                    <form th:action="@{/save}" th:object="${randomBier}" target="_blank" method="post" id="save">
+                    <form th:action="@{/save}" th:object="${randomBier}" method="post" id="save">
                         <input type="hidden" th:field="*{id}" />
                         <input type="hidden" th:field="*{name}" />
                         <input type="hidden" th:field="*{tagline}" />
                         <input type="hidden" th:field="*{abv}" />
-                        <p><input type="submit" th:value="Save" /></p>
+                        <p><input type="submit" class="waves-effect waves-light btn" th:value="Save" /></p>
                     </form>
                 </td>
             </tr>

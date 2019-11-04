@@ -1,8 +1,5 @@
 package com.example.demo.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,6 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     long id;
 
     @Column
@@ -26,9 +24,7 @@ public class User {
     @Column
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonManagedReference
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<Bier> biers;
 
     public long getId() {
