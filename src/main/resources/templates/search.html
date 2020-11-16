@@ -39,7 +39,7 @@
             <td th:text="${bier.tagline}" />
             <td th:text="${bier.abv}" />
             <td>
-                <form th:action="@{/save}" th:object="${bier}" method="post" class="save">
+                <form th:action="@{/update}" th:object="${bier}" method="post" class="save">
                     <input type="hidden" name="id" th:value="${bier.id}" />
                     <input type="hidden" name="name" th:value="${bier.name}" />
                     <input type="hidden" name="tagline" th:value="*{tagline}" />
