@@ -14,11 +14,11 @@ http://localhost:8080
 * user 
 * 12345 
 
-###Download and install the application
+### Download and install the application
 * Clone/Download the project
 * Run "mvn spring-boot:run" in the project directory 
 
-###Reported bug
+### Reported bug
 The save button does not work correctly from the "Search" page. Steps to reproduce:
 * Open the application and log in
 * Navigate to the "Search" page
@@ -26,7 +26,7 @@ The save button does not work correctly from the "Search" page. Steps to reprodu
 * Attempt to save one of the  results
 * Error page appears
 
-###Requested features
+### Requested features
 
 
 1. Currently we only save the name, tagline and abv of a bier. The "description" field should also be saved in the DB
